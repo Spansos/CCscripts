@@ -4,6 +4,7 @@ function move()
         turtle.dig()
     end
     turtle.suck()
+    turtle.suckDown()
     r = turtle.forward()
     return r
 end
