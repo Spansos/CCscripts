@@ -103,14 +103,36 @@ function action()
     end
 end
 
-function three_move()
-    r = true
-    for i=1, 3 do
-        if not move() then
-            r = false
+function wait(n)
+    for i=1, n do
+        os.sleep(1)
+        print(string.format("%d/%d", i, n))
+    end
+end
+
+function dump()
+    fuels = {"minecraft:charcoal", "minecraft:coal"}
+    for i=1, 16 do
+        item_data = turtle.getItemDetail(i, false)
+        turtle.select(i)
+        if(item_data and fuels[item_data.name]) then
+            turtle.turnLeft()
+            turtle.drop()
+            turtle.turnRight()
+        else
+            turtle.drop()
         end
     end
-    return r
+end
+
+function fuel()
+    turtle.turnLeft()
+    turtle.select(1)
+    while(turtle.getFuelLevel() < 3000) do
+        turtle.suck()
+        turtle.refuel()
+    end
+    turtle.turnRight()
 end
 
 function over_all()
@@ -149,5 +171,8 @@ end
 
 while(true) do
     go_back()
+    dump()
+    fuel()
+    wait(60)
     over_all()
 end
