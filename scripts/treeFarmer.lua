@@ -69,7 +69,6 @@ function chop()
     move()
     turtle.turnRight()
     turtle.turnRight()
-    end
 end
 
 function action()
