@@ -13,7 +13,7 @@ function select_item(item_name)
         inf = turtle.getItemDetail(i, false)
         if(inf ~= nil) then
             if(inf.name == item_name) then
-                select(i)
+                turtle.select(i)
                 return true
             end
         end
