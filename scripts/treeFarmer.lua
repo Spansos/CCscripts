@@ -3,9 +3,19 @@ function move()
     if(is_block and block_data.name == "minecraft:oak_leaves") then
         turtle.dig()
     end
-    r, str = turtle.forward()
-    print(str)
+    turtle.suck()
+    r = turtle.forward()
     return r
+end
+
+function select_item(item_name)
+    for i=1, 16 do
+        inf = turtle.getItemDetail(i, false)
+        if(inf.name == item_name) then
+            select(i)
+            return
+        end
+    end
 end
 
 function go_back()
@@ -56,23 +66,36 @@ function chop(right)
     turtle.turnRight()
     turtle.turnRight()
     move()
-    turtle.turnRight()
-    turtle.turnRight()
+    if right then
+        turtle.turnRight()
+    else
+        turtle.turnLeft()
+    end 
 end
 
 function action()
     is_block, block_data = turtle.inspectDown()
     if(block_data.name == "minecraft:cobblestone_slab") then
         turtle.turnRight()
+        turtle.suck()
         is_block, block_data = turtle.inspect()
         if(block_data.name == "minecraft:oak_log") then
             chop(true)
         end
+        if(not is_block) then
+            select_item("minecraft:oak_sapling")
+            turtle.place()
+        end
         turtle.turnRight()
         turtle.turnRight()
+        turtle.suck()
         is_block, block_data = turtle.inspect()
         if(block_data.name == "minecraft:oak_log") then
             chop(false)
+        end
+        if(not is_block) then
+            select_item("minecraft:oak_sapling")
+            turtle.place()
         end
         turtle.turnRight()
     end
@@ -98,15 +121,19 @@ function over_all()
         if(block_data.name == "minecraft:cobblestone") then
             if(n%2 == 1) then
                 turtle.turnLeft()
-                move()
-                move()
-                move()
+                for i=1, 3 do
+                    if(not move()) then
+                        return
+                    end
+                end
                 turtle.turnLeft()
             else
                 turtle.turnRight()
-                move()
-                move()
-                move()
+                for i=1, 3 do
+                    if(not move()) then
+                        return
+                    end
+                end
                 turtle.turnRight()
             end
             move()
