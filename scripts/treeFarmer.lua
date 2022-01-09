@@ -11,9 +11,11 @@ end
 function select_item(item_name)
     for i=1, 16 do
         inf = turtle.getItemDetail(i, false)
-        if(inf ~= nil and inf.name == item_name) then
-            select(i)
-            return
+        if(inf ~= nil) then
+            if(inf.name == item_name) then
+                select(i)
+                return
+            end
         end
     end
 end
