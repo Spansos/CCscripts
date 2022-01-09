@@ -14,10 +14,11 @@ function select_item(item_name)
         if(inf ~= nil) then
             if(inf.name == item_name) then
                 select(i)
-                return
+                return 1
             end
         end
     end
+    return 0
 end
 
 function go_back()
@@ -85,8 +86,9 @@ function action()
             chop(true)
         end
         if(not is_block) then
-            select_item("minecraft:oak_sapling")
-            turtle.place()
+            if select_item("minecraft:oak_sapling") then
+                turtle.place()
+            end
         end
         turtle.turnRight()
         turtle.turnRight()
@@ -96,8 +98,9 @@ function action()
             chop(false)
         end
         if(not is_block) then
-            select_item("minecraft:oak_sapling")
-            turtle.place()
+            if select_item("minecraft:oak_sapling") then
+                turtle.place()
+            end
         end
         turtle.turnRight()
     end
