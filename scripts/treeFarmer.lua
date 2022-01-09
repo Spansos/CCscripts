@@ -14,11 +14,11 @@ function select_item(item_name)
         if(inf ~= nil) then
             if(inf.name == item_name) then
                 turtle.select(i)
-                return true
+                return 1
             end
         end
     end
-    return false
+    return 0
 end
 
 function go_back()
@@ -70,10 +70,10 @@ function chop(right)
     turtle.turnRight()
     move()
     if right then
-        turtle.turnRight()
-    else
         turtle.turnLeft()
-    end 
+    else
+        turtle.turnRight()
+    end
 end
 
 function action()
@@ -176,6 +176,6 @@ while(true) do
     go_back()
     dump()
     fuel()
-    wait(60)
+    wait(0)
     over_all()
 end
