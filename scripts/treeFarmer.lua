@@ -92,7 +92,6 @@ function over_all()
     turtle.turnRight()
     turtle.turnRight()
     move()
-    action()
     n = 1
     while(true) do
         is_block, block_data = turtle.inspectDown()
@@ -110,9 +109,10 @@ function over_all()
                 move()
                 turtle.turnRight()
             end
-        else
             move()
+        else
             action()
+            move()
         end
     end
 end
