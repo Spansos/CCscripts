@@ -14,11 +14,11 @@ function select_item(item_name)
         if(inf ~= nil) then
             if(inf.name == item_name) then
                 select(i)
-                return 1
+                return true
             end
         end
     end
-    return 0
+    return false
 end
 
 function go_back()
