@@ -89,12 +89,14 @@ function three_move()
 end
 
 function over_all()
+    turtle.turnRight()
+    turtle.turnRight()
     move()
     action()
     n = 1
     while(true) do
         is_block, block_data = turtle.inspectDown()
-        if(is_block.name == "minecraft:cobblestone") then
+        if(block_data.name == "minecraft:cobblestone") then
             if(n%2 == 1) then
                 turtle.turnLeft()
                 move()
