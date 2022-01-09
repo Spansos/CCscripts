@@ -28,7 +28,7 @@ if(fs.exists("/turtle_info.txt")) then
         if(fs.exists("script.lua")) then
             os.run("script.lua")
         else
-            print("No online or offline script.")
+            print("No offline script.")
             error()
         end
     end
