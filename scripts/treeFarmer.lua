@@ -8,14 +8,12 @@ function move()
     return r
 end
 
-function select_item(item_name)
+function select_sapling()
     for i=1, 16 do
         inf = turtle.getItemDetail(i, false)
-        if(inf ~= nil) then
-            if(inf.name == item_name) then
-                turtle.select(i)
-                return 1
-            end
+        if(inf ~= nil and inf.name == "minecraft:oak_sapling") then
+            turtle.select(i)
+            return 1
         end
     end
     return 0
@@ -54,7 +52,7 @@ function go_back()
     until(block_data.name == "minecraft:chest")
 end
 
-function chop(right)
+function chop()
     turtle.dig()
     move()
     repeat
@@ -69,10 +67,8 @@ function chop(right)
     turtle.turnRight()
     turtle.turnRight()
     move()
-    if right then
-        turtle.turnLeft()
-    else
-        turtle.turnRight()
+    turtle.turnRight()
+    turtle.turnRight()
     end
 end
 
@@ -83,10 +79,10 @@ function action()
         turtle.suck()
         is_block, block_data = turtle.inspect()
         if(block_data.name == "minecraft:oak_log") then
-            chop(true)
+            chop()
         end
         if(not is_block) then
-            if select_item("minecraft:oak_sapling") then
+            if select_sapling() == 1 then
                 turtle.place()
             end
         end
@@ -95,10 +91,10 @@ function action()
         turtle.suck()
         is_block, block_data = turtle.inspect()
         if(block_data.name == "minecraft:oak_log") then
-            chop(false)
+            chop()
         end
         if(not is_block) then
-            if select_item("minecraft:oak_sapling") then
+            if select_sapling() == 1 then
                 turtle.place()
             end
         end
