@@ -65,13 +65,13 @@ function action()
     if(block_data.name == "minecraft:cobblestone_slab") then
         turtle.turnRight()
         is_block, block_data = turtle.inspect()
-        if(block_data.name == "minecraft:oak_logs") then
+        if(block_data.name == "minecraft:oak_log") then
             chop(true)
         end
         turtle.turnRight()
         turtle.turnRight()
         is_block, block_data = turtle.inspect()
-        if(block_data.name == "minecraft:oak_logs") then
+        if(block_data.name == "minecraft:oak_log") then
             chop(false)
         end
         turtle.turnRight()
