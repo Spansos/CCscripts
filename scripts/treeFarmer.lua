@@ -110,6 +110,7 @@ function over_all()
                 turtle.turnRight()
             end
             move()
+            n = n + 1
         else
             action()
             move()
