@@ -3,9 +3,9 @@ if(fs.exists("/.settings")) then
     print("Reading settings.txt...")
     script = settings.get("script")
     print("Checking if script can be found on GitHub...")
-    if(http.checkURL(string.format("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/%s", script))) then
+    if(http.checkURL("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/"..script)) then
         print("Downloading script...")
-        in_file = http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/" .. script)
+        in_file = http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/"..script)
         print("Writing script...")
         out_file = io.open("script.lua", "w")
         io.output(out_file)
