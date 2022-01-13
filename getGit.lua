@@ -2,6 +2,7 @@ print("Checking settings...")
 if(fs.exists("/.settings")) then
     print("Reading settings.txt...")
     script = settings.get("script")
+    print("---------------------------------------------------------"..script)
     print("Checking if script can be found on GitHub...")
     if(http.checkURL("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/"..script)) then
         print("Downloading script...")
