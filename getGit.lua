@@ -26,6 +26,6 @@ if(fs.exists("/.settings")) then
         end
     end
 else
-    print("No file for options")
+    print("No options file")
     error()
 end
