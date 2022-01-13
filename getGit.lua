@@ -1,17 +1,11 @@
-print("Checking turtle_info.txt...")
-if(fs.exists("/turtle_info.txt")) then
-    print("Reading turtle_info.txt...")
-    t_inf = {}
-    for l in io.lines("/turtle_info.txt") do
-        func = string.gmatch(l, "([^:]+)")
-        key = func()
-        value = func()
-        t_inf[key] = value
-    end
+print("Checking settings...")
+if(fs.exists("/.settings")) then
+    print("Reading settings.txt...")
+    script = settings.get("script")
     print("Checking if script can be found on GitHub...")
-    if(http.checkURL(string.format("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/%s", t_inf.script))) then
+    if(http.checkURL(string.format("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/%s", script))) then
         print("Downloading script...")
-        in_file = http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/" .. t_inf.script)
+        in_file = http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/" .. script)
         print("Writing script...")
         out_file = io.open("script.lua", "w")
         io.output(out_file)
@@ -32,6 +26,6 @@ if(fs.exists("/turtle_info.txt")) then
         end
     end
 else
-    print("No file turtle_info.txt")
+    print("No file for options")
     error()
 end
