@@ -1,4 +1,3 @@
-print(http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts/" .. script).readAll())
 print("Checking settings...")
 if(fs.exists("/.settings")) then
     print("Reading settings.txt...")
