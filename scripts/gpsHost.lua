@@ -24,4 +24,5 @@ local function host(mod)
     end
 end
 
-host(getModem)
+open(getModem())
+host()
