@@ -8,6 +8,12 @@ local function getModem()
     return nil
 end
 
+local function open(mod)
+    if(not mod.isOpen()) then
+        mod.open(65534)
+    end
+end
+
 local function host(mod)
     local x, y, z = settings.get("x"), settings.get("y"), settings.get("z")
     while true do
