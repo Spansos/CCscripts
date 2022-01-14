@@ -22,6 +22,7 @@ if script then
             print("No offline script.")
             error()
         end
+    end
 else
     print("No script option set.")
     error()
