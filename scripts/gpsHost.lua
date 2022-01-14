@@ -9,7 +9,7 @@ local function getModem()
 end
 
 local function open(mod)
-    if(not mod.isOpen()) then
+    if(not mod.isOpen(65534)) then
         mod.open(65534)
     end
 end
