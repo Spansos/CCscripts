@@ -18,9 +18,9 @@ local function host(mod)
     local x, y, z = settings.get("x"), settings.get("y"), settings.get("z")
     while true do
         local _, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
-        print(_, side, channel, replyChannel, message, distance)
         if message == "PING" then
             --rednet.send(sender, textutils.serialize({x, y, z}))
+            mod.transmit(replyChannel, 65534, textutils.serialize({x, y, z})
         end
     end
 end
