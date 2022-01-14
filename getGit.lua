@@ -17,7 +17,7 @@ if script then
         print("Script can't be found.")
         print("Launching possibly older version...")
         if(fs.exists("script.lua")) then
-            os.run({}, "script.lua")
+            shell.run("script.lua")
         else
             print("No offline script.")
             error()
