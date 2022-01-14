@@ -8,9 +8,9 @@ local function getModem()
     return nil
 end
 
-x, y, z = settings.get("position")
-mod = getModem()
-modName  = peripheral.getName(mod)
+local x, y, z = settings.get("x"), settings.get("y"), settings.get("z")
+local mod = getModem()
+local modName  = peripheral.getName(mod)
 rednet.open(modName)
 while true do
     sender, message, distance = rednet.receive()
