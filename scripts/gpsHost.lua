@@ -8,23 +8,13 @@ local function getModem()
     return nil
 end
 
-local function open(mod)
-    if(not mod.isOpen(65534)) then
-        mod.open(65534)
-    end
-end
-
-local function host(mod)
-    local x, y, z = settings.get("x"), settings.get("y"), settings.get("z")
-    while true do
-        local _, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
-        if message == "PING" then
-            --rednet.send(sender, textutils.serialize({x, y, z}))
-            mod.transmit(replyChannel, 65534, textutils.serialize({x, y, z}))
-        end
-    end
-end
-
+x, y, z = settings.get("position")
 mod = getModem()
-open(mod)
-host(mod)
+modName  = peripheral.getName(mod)
+rednet.open(modName)
+while true do
+    sender, message, distance = rednet.receive()
+    if message == "PING" then
+        rednet.send(sender, textutils.serialize({x,y,z}))
+    end
+end
