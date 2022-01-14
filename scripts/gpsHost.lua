@@ -8,13 +8,14 @@ local function getModem()
     return nil
 end
 
-local function host(mod, position)
+local function host(mod)
+    local x, y, z = settings.get("x"), settings.get("y"), settings.get("z")
     while true do
         local sender, message, distance = rednet.receive()
         if message == "PING" then
-            rednet.send(sender, textutils.serialize(position))
+            rednet.send(sender, textutils.serialize({x, y, z}))
         end
     end
 end
 
-host(getModem, settings.get("position"))
+host(getModem)
