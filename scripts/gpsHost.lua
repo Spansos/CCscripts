@@ -1,1 +1,1 @@
-os.run({host, settings.get("x"), settings.get("y"), settings.get("z")}, gps)
+os.run({"host", settings.get("x"), settings.get("y"), settings.get("z")}, "gps")
