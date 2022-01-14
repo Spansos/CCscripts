@@ -1,1 +1,4 @@
-shell.run("gps host" .. settings.get("x") .. settings.get("y") .. settings.get("z"))
+x = settings.get("x")
+y = settings.get("y")
+z = settings.get("z")
+shell.run("gps", "host", x, y, z)
