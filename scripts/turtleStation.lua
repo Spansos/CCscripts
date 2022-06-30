@@ -10,12 +10,13 @@ end
 
 
 local function place_turtle(slot)
-    if not turtle.detect() then
-        turtle.select(slot)
-        turtle.place()
-        local per = peripheral.wrap("front")
-        per.turnOn()
+    while turtle.detect() do
+        os.sleep(1)
     end
+    turtle.select(slot)
+    turtle.place()
+    local per = peripheral.wrap("front")
+    per.turnOn()
 end
 
 local function make_script(script_name)
