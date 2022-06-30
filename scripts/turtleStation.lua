@@ -20,7 +20,7 @@ local function place_turtle(slot)
 end
 
 local function make_script(script_name)
-    local code = http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/scripts"..script_name)
+    local code = http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/"..script_name)
     local file = fs.open(script_name, 'w')
     file.write(code.readAll())
     file.close()
