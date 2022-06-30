@@ -1,9 +1,11 @@
 local function get_item_slot(item, bDisplay_name)
     for i=1, 16 do
         local item_info = turtle.getItemDetail(i, display_name)
-        local item_name = item_info and item_info[bDisplay_name and "displayName" or "name"]
-        if item_name == name then
-            return i
+        if item_info != nil then
+            local item_name = item_info[bDisplay_name and "displayName" or "name"]
+            if item_name == name then
+                return i
+            end
         end
     end
 end
