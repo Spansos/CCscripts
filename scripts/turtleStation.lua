@@ -64,6 +64,7 @@ settings.set('shell.allow_disk_startup', false)
 delete_files('', {'.settings', 'script.lua', 'startup.lua'})
 local config = settings.get("station_config")
 
+rednet.open("left")
 local sender_id, message, protocol = rednet.receive("release")
 local turtle_type, turtle_script, amount = message[1], message[2], message[3]
 
