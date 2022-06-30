@@ -8,6 +8,7 @@ local function get_item_slot(item, bDisplay_name)
             end
         end
     end
+    return false
 end
 
 
