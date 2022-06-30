@@ -32,8 +32,8 @@ local function config_turtle(slot, script_name)
     end
     turtle.select(slot)
     turtle.dropDown()
-    delete_files('drive/', {})
-    fs.copy(script_name, 'drive/startup.lua')
+    delete_files('disk/', {})
+    fs.copy(script_name, 'disk/startup.lua')
     turtle.suckDown()
 end
 
