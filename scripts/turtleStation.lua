@@ -36,8 +36,8 @@ local function config_turtle(slot, script_name)
     turtle.suckDown()
 end
 
-local function suck_turtle()
-    while not get_item_slot(config['turtle_type'], true) do
+local function suck_turtle(turtle_type)
+    while not get_item_slot(turtle_type, true) do
         turtle.suckUp()
     end
 end
@@ -64,10 +64,11 @@ delete_files('', {'.settings', 'script.lua', 'startup.lua'})
 local config = settings.get("station_config")
 
 local sender_id, message, protocol = rednet.receive("release")
+local turtle_type, turtle_script, amount = message[1], message[2], message[3]
 
-for i=1, message[3] do
-    suck_turtle()
-    slot = get_item_slot(message[1], true)
-    config_turtle(slot, message[2])
+for i=1, amount do
+    suck_turtle(turtle_type)
+    local slot = get_item_slot(turtle_type, true)
+    config_turtle(slot, turtle_script)
     place_turtle(slot)
 end
