@@ -24,7 +24,7 @@ end
 local function delete_files(path, excludes)
     for _, file in ipairs(fs.list(path)) do
         if not table_contains(excludes, file) then
-            fs.delete(file)
+            fs.delete(fs.combine(path, excludes))
         end
     end
 end
