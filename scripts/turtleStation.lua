@@ -49,7 +49,8 @@ local function make_script(script_name)
 end
 
 
-local function config_turtle(slot, script_name)
+
+local function config_turtle(slot, script_name, drone_args)
     if not fs.exists(script_name) then
         make_script(script_name)
     end
@@ -57,6 +58,9 @@ local function config_turtle(slot, script_name)
     turtle.dropDown()
     delete_files('disk', {'rom'})
     fs.copy(script_name, 'disk/startup.lua')
+    local con_file = fs.open('disk/config.txt', 'w')
+    con_file.write(textutils.serialise(drone_args))
+    con_file.close()
     turtle.suckDown()
 end
 
