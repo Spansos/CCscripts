@@ -37,7 +37,7 @@ local function place_turtle(slot)
     turtle.select(slot)
     turtle.place()
     local per = peripheral.wrap("front")
-    -- per.turnOn()
+    per.turnOn()
 end
 
 
@@ -73,12 +73,15 @@ delete_files('', {'rom', '.settings', 'script.lua', 'startup.lua'})
 local config = settings.get("station_config")
 
 rednet.open("left")
-local sender_id, message, protocol = rednet.receive("release")
-local turtle_type, turtle_script, amount = message[1], message[2], message[3]
 
-for i=1, amount do
-    suck_turtle(turtle_type)
-    local slot = get_item_slot(turtle_type, true)
-    config_turtle(slot, turtle_script)
-    place_turtle(slot)
+while true do
+    local sender_id, message, protocol = rednet.receive("release")
+    local turtle_type, turtle_script, amount = message[1], message[2], message[3]
+
+    for i=1, amount do
+        suck_turtle(turtle_type)
+        local slot = get_item_slot(turtle_type, true)
+        config_turtle(slot, turtle_script)
+        place_turtle(slot)
+    end
 end
