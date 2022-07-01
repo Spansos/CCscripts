@@ -23,7 +23,7 @@ end
 
 local function delete_files(path, excludes)
     for _, file in ipairs(fs.list(path)) do
-        if not fs.isDir(file) and not table_contains(excludes, file) then
+        if not table_contains(excludes, file) then
             fs.delete(file)
         end
     end
@@ -37,7 +37,7 @@ local function place_turtle(slot)
     turtle.select(slot)
     turtle.place()
     local per = peripheral.wrap("front")
-    per.turnOn()
+    -- per.turnOn()
 end
 
 
