@@ -81,6 +81,9 @@ local function moveto(dest_pos, desired_y, direction)
     end
 end
 
+turtle.suckDown()
+turtle.refuel()
+
 config, direction = config_turtle()
 pos = gps.locate()
 moveto(config['pos'], 80, direction)
