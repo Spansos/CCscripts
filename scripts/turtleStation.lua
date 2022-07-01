@@ -3,7 +3,6 @@ local function get_item_slot(item, bDisplay_name)
         local item_info = turtle.getItemDetail(i, bDisplay_name)
         if item_info then
             local item_name = item_info[bDisplay_name and "displayName" or "name"]
-            print(i, item_name, item, bDisplay_name and "displayName" or "name")
             if item_name == item then
                 return i
             end
