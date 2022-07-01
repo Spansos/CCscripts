@@ -60,9 +60,9 @@ local function config_turtle(slot, script_name, drone_args)
     turtle.dropDown()
     delete_files('disk', {'rom'})
     fs.copy(script_name, 'disk/startup.lua')
-    local con_file = fs.open('disk/config.txt', 'w')
-    con_file.write(textutils.serialise(drone_args))
-    con_file.close()
+    local args_file = fs.open('disk/args', 'w')
+    args_file.write(textutils.serialise(drone_args))
+    args_file.close()
     turtle.suckDown()
 end
 
@@ -87,7 +87,7 @@ while true do
     for i=1, amount do
         suck_turtle(turtle_type)
         local slot = get_item_slot(turtle_type, true)
-        config_turtle(slot, turtle_script, {tot_n=amount, n=i, message=message})
+        config_turtle(slot, turtle_script, {tot_n=amount, n=i, direction=settings.get('direction'), message=message})
         place_turtle(slot)
     end
 end
