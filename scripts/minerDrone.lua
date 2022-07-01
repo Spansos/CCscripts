@@ -66,6 +66,8 @@ local function moveto(dest_pos, desired_y, direction)
             d_x, d_z = dest_pos[1]-cur_pos[1], dest_pos[3]-cur_pos[3]
             cur_pos[2] = go_to_y(cur_pos[2], desired_y)
         end
+    end
+    if d_z != 0 then
         move_vec = vector_to_dir({0, d_z})
         dir = turnto(move_vec)
         while d_z != 0 do
@@ -76,6 +78,8 @@ local function moveto(dest_pos, desired_y, direction)
             d_x, d_z = dest_pos[1]-cur_pos[1], dest_pos[3]-cur_pos[3]
             cur_pos[2] = go_to_y(cur_pos[2], desired_y)
         end
+    end
+end
 
 config, direction = config_turtle()
 pos = gps.locate()
