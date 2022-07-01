@@ -21,6 +21,7 @@ local function vector_to_dir(vec)
         return 1
     end
     local vec = {vec[1]/math.abs(vec[1]), vec[2]/math.abs(vec[1])}
+    print(vec)
     local vec_to_dir_table = {[{0, -1}]=1, [{1, 0}]=2, [{0, 1}]=3, [{-1,0}]=4}
     return vec_to_dir_table[vec]
 end
@@ -89,4 +90,4 @@ turtle.refuel()
 
 config, direction = config_turtle()
 pos = gps.locate()
-moveto(config['minePos'], 80, direction)
+moveto(config['minePos'], 70, direction)
