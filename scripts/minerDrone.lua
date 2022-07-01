@@ -1,6 +1,7 @@
 local function config_turtle()
-    local args_file = fs.open('args')
+    local args_file = fs.open('args', 'r')
     local args = textutils.unserialise(con_file.readAll())
+    args_file.close()
     local config = {}
     config['minePos'] = pre_config['pos']
     config['mineDims'] = pre_config['dims']
