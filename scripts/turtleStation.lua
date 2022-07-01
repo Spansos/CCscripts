@@ -55,7 +55,7 @@ local function config_turtle(slot, script_name)
     end
     turtle.select(slot)
     turtle.dropDown()
-    delete_files('disk/', {})
+    delete_files('disk/', {'rom'})
     fs.copy(script_name, 'disk/startup.lua')
     turtle.suckDown()
 end
@@ -69,7 +69,7 @@ end
 
 
 settings.set('shell.allow_disk_startup', false)
-delete_files('', {'.settings', 'script.lua', 'startup.lua'})
+delete_files('', {'rom', '.settings', 'script.lua', 'startup.lua'})
 local config = settings.get("station_config")
 
 rednet.open("left")
