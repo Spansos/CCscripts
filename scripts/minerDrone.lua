@@ -10,7 +10,7 @@ end
 
 
 local function dir_to_vector(dir)
-    local dir_to_vec_table = {1={0, -1}, 2={1, 0}, 3={0, 1}, 4={-1,0}}
+    local dir_to_vec_table = {[1]={0, -1}, [2]={1, 0}, [3]={0, 1}, [4]={-1,0}}
     return dir_to_vec_table[dir]
 end
 
