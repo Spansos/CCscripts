@@ -89,4 +89,4 @@ turtle.refuel()
 
 config, direction = config_turtle()
 pos = gps.locate()
-moveto(config['pos'], 80, direction)
+moveto(config['minePos'], 80, direction)
