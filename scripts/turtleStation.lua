@@ -55,7 +55,7 @@ local function config_turtle(slot, script_name)
     end
     turtle.select(slot)
     turtle.dropDown()
-    delete_files('disk/', {'rom'})
+    delete_files('disk', {'rom'})
     fs.copy(script_name, 'disk/startup.lua')
     turtle.suckDown()
 end
