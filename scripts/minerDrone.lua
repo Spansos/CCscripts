@@ -23,7 +23,7 @@ local function vector_to_dir(vec)
     local vec = {vec[1]/math.abs(vec[1]), vec[2]/math.abs(vec[1])}
     print(vec)
     local vec_to_dir_table = {[{0, -1}]=1, [{1, 0}]=2, [{0, 1}]=3, [{-1,0}]=4}
-    return vec_to_dir_table[vec]
+    return vec_to_dir_table[vec], vec
 end
 
 
@@ -60,8 +60,8 @@ local function moveto(dest_pos, desired_y, direction)
     local d_x, d_z = dest_pos[1]-cur_pos[1], dest_pos[3]-cur_pos[3]
     cur_pos[2] = go_to_y(cur_pos[2], desired_y)
     if d_x ~= 0 then
-        local move_vec = vector_to_dir({d_x, 0})
-        dir = turnto(move_vec)
+        local move_to_dir, move_vec = vector_to_dir({d_x, 0})
+        dir = turnto(dir, move_to_dir)
         while d_x ~= 0 do
             while not turtle.forward() do
                 turtle.up()
@@ -72,8 +72,8 @@ local function moveto(dest_pos, desired_y, direction)
         end
     end
     if d_z ~= 0 then
-        move_vec = vector_to_dir({0, d_z})
-        dir = turnto(move_vec)
+        local move_to_dir, move_vec = vector_to_dir({0, d_z})
+        dir = turnto(dir, move_to_dir)
         while d_z ~= 0 do
             while not turtle.forward() do
                 turtle.up()
