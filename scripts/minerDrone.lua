@@ -21,7 +21,6 @@ local function vector_to_dir(vec)
         return 1
     end
     local vec = {vec[1]/math.abs(vec[1]), vec[2]/math.abs(vec[1])}
-    print(vec)
     local vec_to_dir_table = {[{0, -1}]=1, [{1, 0}]=2, [{0, 1}]=3, [{-1,0}]=4}
     return vec_to_dir_table[vec], vec
 end
@@ -29,7 +28,7 @@ end
 
 local function turnto(cur_dir, dest_dir)
     while cur_dir ~= dest_dir do
-        cur_dir = cur_dir + 1
+        cur_dir = (cur_dir % 4) + 1
         turtle.turnRight()
     end
     return cur_dir
