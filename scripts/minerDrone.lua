@@ -3,8 +3,8 @@ local function config_turtle()
     local args = textutils.unserialise(args_file.readAll())
     args_file.close()
     local config = {}
-    config['minePos'] = pre_config['pos']
-    config['mineDims'] = pre_config['dims']
+    config['minePos'] = args['pos']
+    config['mineDims'] = args['dims']
     direction = args['direction']
     return config, direction --direction is int, 1=north, 2=east, etc
 end
