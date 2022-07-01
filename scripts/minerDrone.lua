@@ -16,7 +16,7 @@ end
 
 
 local function vector_to_dir(vec)
-    if vec = {0, 0} then
+    if vec == {0, 0} then
         return 1
     end
     local vec = {vec[1]/math.abs(vec[1]), vec[2]/math.abs(vec[1])}
