@@ -11,6 +11,25 @@ local function get_item_slot(item, bDisplay_name)
 end
 
 
+local function table_contains(table, item)
+    for _, v in ipairs(table) do
+        if v == item then
+            return true
+        end
+    end
+    return false
+end
+
+
+local function delete_files(path, excludes)
+    for _, file in ipairs(fs.list(path)) do
+        if not fs.isDir(file) and not table_contains(excludes, file) then
+            fs.delete(file)
+        end
+    end
+end
+
+
 local function place_turtle(slot)
     while turtle.detect() do
         os.sleep(1)
@@ -21,12 +40,14 @@ local function place_turtle(slot)
     per.turnOn()
 end
 
+
 local function make_script(script_name)
     local code = http.get("https://raw.githubusercontent.com/Spansos/CCscripts/main/"..script_name)
     local file = fs.open(script_name, 'w')
     file.write(code.readAll())
     file.close()
 end
+
 
 local function config_turtle(slot, script_name)
     if not fs.exists(script_name) then
@@ -39,28 +60,13 @@ local function config_turtle(slot, script_name)
     turtle.suckDown()
 end
 
+
 local function suck_turtle(turtle_type)
     while not get_item_slot(turtle_type, true) do
         turtle.suckUp()
     end
 end
 
-local function table_contains(table, item)
-    for _, v in ipairs(table) do
-        if v == item then
-            return true
-        end
-    end
-    return false
-end
-
-local function delete_files(path, excludes)
-    for _, file in ipairs(fs.list(path)) do
-        if not fs.isDir(file) and not table_contains(excludes, file) then
-            fs.delete(file)
-        end
-    end
-end
 
 settings.set('shell.allow_disk_startup', false)
 delete_files('', {'.settings', 'script.lua', 'startup.lua'})
