@@ -39,14 +39,14 @@ local function go_to_y(cur_y, dest_y)
     local d_y = dest_y - cur_y
     if d_y > 0 then
         while d_y ~= 0 and turtle.up() do
-            local cur_y = cur_y + 1
-            local d_y = dest_y - cur_y
+            cur_y = cur_y + 1
+            d_y = dest_y - cur_y
         end
     else
         if d_y < 0 then
             while d_y ~= 0 and turtle.down() do
-                local cur_y = cur_y - 1
-                local d_y = dest_y - cur_y
+                cur_y = cur_y - 1
+                d_y = dest_y - cur_y
             end
         end
     end
