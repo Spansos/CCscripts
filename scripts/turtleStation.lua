@@ -37,7 +37,9 @@ local function place_turtle(slot)
     turtle.select(slot)
     turtle.place()
     local per = peripheral.wrap("front")
-    per.turnOn()
+    if per then
+        per.turnOn()
+    end
 end
 
 
@@ -80,7 +82,7 @@ rednet.open("left")
 
 while true do
     local sender_id, message, protocol = rednet.receive("release")
-    local turtle_type, turtle_script, amount = message['ttype'], message['tscript'], message['n']
+    local turtle_type, turtle_script, amount = message['turtle'], message['script'], message['n']
 
     for i=1, amount do
         suck_turtle(turtle_type)
