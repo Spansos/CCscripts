@@ -80,12 +80,12 @@ rednet.open("left")
 
 while true do
     local sender_id, message, protocol = rednet.receive("release")
-    local turtle_type, turtle_script, amount = message[1], message[2], message[3]
+    local turtle_type, turtle_script, amount = message['ttype'], message['tscript'], message['n']
 
     for i=1, amount do
         suck_turtle(turtle_type)
         local slot = get_item_slot(turtle_type, true)
-        config_turtle(slot, turtle_script)
+        config_turtle(slot, turtle_script, {tot_n=amount, n=i, message=message})
         place_turtle(slot)
     end
 end
