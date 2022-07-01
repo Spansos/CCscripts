@@ -3,3 +3,5 @@ while true do
     if tInfo['name'] == 'minecraft:turtle_normal' then
         turtle.dig()
         turtle.dropDown()
+    end
+end
