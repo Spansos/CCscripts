@@ -56,7 +56,7 @@ end
 
 function wait(n)
     for i=1, n do
-        os.sleep(1)
+        sleep(1)
         print(string.format("%d/%d", i, n))
     end
 end

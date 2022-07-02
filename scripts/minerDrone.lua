@@ -20,11 +20,10 @@ local function vector_to_dir(vec)
     if vec == {0, 0} then
         return 1
     end
-    local vec[1] = not vec[1] or vec[1]/math.abs(vec[1])
-    local vec[2] = not vec[2] or vec[2]/math.abs(vec[2])
+    vec[1] = vec[1]==0 and vec[1]/math.abs(vec[1]) or 0
+    vec[2] = vec[2]==0 and vec[2]/math.abs(vec[2]) or 0
     local vec_to_dir_table = {['{0,-1,}']=1, ['{1,0,}']=2, ['{0,1,}']=3, ['{-1,0,}']=4}
     local vec_str = textutils.serialise(vec, {compact=true})
-    print(vec_str)
     return vec_to_dir_table[vec_str], vec
 end
 
