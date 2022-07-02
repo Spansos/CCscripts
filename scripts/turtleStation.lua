@@ -37,9 +37,11 @@ local function place_turtle(slot)
     turtle.select(slot)
     turtle.place()
     local per = peripheral.wrap("front")
-    if per ~= nil then
-        per.turnOn()
+    while not per do
+        sleep(.2)
+        per = peripheral.wrap("front")
     end
+    per.turnOn()
 end
 
 
