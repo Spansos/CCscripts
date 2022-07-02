@@ -24,7 +24,8 @@ local function vector_to_dir(vec)
     vec[2] = vec[2]~=0 and vec[2]/math.abs(vec[2]) or 0
     local vec_to_dir_table = {['{0,-1,}']=1, ['{1,0,}']=2, ['{0,1,}']=3, ['{-1,0,}']=4}
     local vec_str = textutils.serialise(vec, {compact=true})
-    return vec_to_dir_table[vec_str], vec
+    local r_dir = vec_to_dir_table[vec_str]
+    return r_dir, vec
 end
 
 
@@ -59,6 +60,7 @@ end
 
 local function moveto(dest_pos, desired_y, direction)
     local cur_pos, dir = {gps.locate()}, direction
+    print(cur_pos)
     local d_x, d_z = dest_pos[1]-cur_pos[1], dest_pos[3]-cur_pos[3]
     cur_pos[2] = go_to_y(cur_pos[2], desired_y)
     if d_x ~= 0 then
@@ -93,3 +95,4 @@ turtle.refuel()
 config, direction = config_turtle()
 pos = gps.locate()
 moveto(config['minePos'], 70, direction)
+print(gps.locate())
