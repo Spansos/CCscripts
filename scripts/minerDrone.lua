@@ -22,7 +22,9 @@ local function vector_to_dir(vec)
     end
     local vec = {vec[1]/math.abs(vec[1]), vec[2]/math.abs(vec[2])}
     local vec_to_dir_table = {['{0,-1,}']=1, ['{1,0,}']=2, ['{0,1,}']=3, ['{-1,0,}']=4}
-    return vec_to_dir_table[textutils.serialise(vec, {compact=true})], vec
+    local vec_str = textutils.serialise(vec, {compact=true})
+    print(vec_str)
+    return vec_to_dir_table[vec_str], vec
 end
 
 
