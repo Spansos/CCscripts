@@ -30,6 +30,7 @@ local function turnto(cur_dir, dest_dir)
     while cur_dir ~= dest_dir do
         cur_dir = (cur_dir % 4) + 1
         turtle.turnRight()
+        print(cur_dir, dest_dir)
     end
     return cur_dir
 end
