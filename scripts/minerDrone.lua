@@ -95,5 +95,5 @@ turtle.refuel()
 
 config, direction = config_turtle()
 cur_pos, direction = moveto(config['minePos'], 70, direction)
-print(textutils.serialise(gps.locate()))
+print(textutils.serialise({gps.locate()}))
 go_to_y(cur_pos, 65)
