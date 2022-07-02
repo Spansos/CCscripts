@@ -20,7 +20,7 @@ local function vector_to_dir(vec)
     if vec == {0, 0} then
         return 1
     end
-    local vec = {vec[1]/math.abs(vec[1]), vec[2]/math.abs(vec[1])}
+    local vec = {vec[1]/math.abs(vec[1]), vec[2]/math.abs(vec[2])}
     local vec_to_dir_table = {[{0, -1}]=1, [{1, 0}]=2, [{0, 1}]=3, [{-1,0}]=4}
     return vec_to_dir_table[vec], vec
 end
