@@ -32,12 +32,12 @@ end
 
 local function place_turtle(slot)
     while turtle.detect() do
-        os.sleep(1)
+        sleep(1)
     end
     turtle.select(slot)
     turtle.place()
     local per = peripheral.wrap("front")
-    if per then
+    if per ~= nil then
         per.turnOn()
     end
 end
