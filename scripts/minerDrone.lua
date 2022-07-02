@@ -60,7 +60,7 @@ end
 
 local function moveto(dest_pos, desired_y, direction)
     local cur_pos, dir = {gps.locate()}, direction
-    print(cur_pos)
+    print(textutils.serialise(cur_pos))
     local d_x, d_z = dest_pos[1]-cur_pos[1], dest_pos[3]-cur_pos[3]
     cur_pos[2] = go_to_y(cur_pos[2], desired_y)
     if d_x ~= 0 then
@@ -87,12 +87,13 @@ local function moveto(dest_pos, desired_y, direction)
             cur_pos[2] = go_to_y(cur_pos[2], desired_y)
         end
     end
+    return cur_pos, direction
 end
 
 turtle.suckDown()
 turtle.refuel()
 
 config, direction = config_turtle()
-pos = gps.locate()
-moveto(config['minePos'], 70, direction)
-print(gps.locate())
+cur_pos, direction = moveto(config['minePos'], 70, direction)
+print(textutils.serialise(gps.locate()))
+go_to_y(cur_pos, 65)
