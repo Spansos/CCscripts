@@ -32,7 +32,7 @@ local function vec_from_dir(dir)
     local dir_to_vec_table = {[1]={0, -1}, [2]={1, 0}, [3]={0, 1}, [4]={-1,0}}
     local dir_vec = dir_to_vec_table[dir]
     r_vec[1], r_vec[2] = dir_vec[1], dir_vec[2]
-    return r_vec
+    return r_vec, r_vec[1], r_vec[2]
 end
 
 local function get_direction()
@@ -130,10 +130,10 @@ end
 
 local function turn(bLeft, dir_vec)
     if bLeft then
-        cur_dir_vec = vec_from_dir((vec_to_dir(cur_dir_vec) % 4) - 1)
+        _, dir_vec[1], dir_vec[2] = vec_from_dir((vec_to_dir(dir_vec) % 4) - 1)
         turtle.turnLeft()
     else
-        cur_dir_vec = vec_from_dir((vec_to_dir(cur_dir_vec) % 4) + 1)
+        _, dir_vec[1], dir_vec[2] = vec_from_dir((vec_to_dir(dir_vec) % 4) + 1)
         turtle.turnRight()
     end
 end
