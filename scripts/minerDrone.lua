@@ -190,7 +190,7 @@ if fs.exists('args') then
     set_save(config)
 else
     local config = get_save()
-    local dir = get_direction()
+    local dir = vec_to_dir(get_direction())
     config['dir'], config['pos'] = dir, gps.locate()
     set_save(config)
 end
