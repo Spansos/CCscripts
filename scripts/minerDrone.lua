@@ -93,7 +93,10 @@ end
 
 
 local function moveto(dest_pos, cur_pos, desired_y, dir_vec)
-    cur_pos = {gps.locate()}
+    local loc_pos = {gps.locate()}
+    cur_pos[1] = loc_pos[1]
+    cur_pos[2] = loc_pos[2]
+    cur_pos[3] = loc_pos[3]
     local d_x, d_z = dest_pos[1]-cur_pos[1], dest_pos[3]-cur_pos[3]
     go_to_y(cur_pos, desired_y)
     if d_x ~= 0 then
@@ -161,13 +164,13 @@ local function mine_plane(root_pos, mine_size, pos, dir_vec)
     end
 end
 
-local function dig_down(cur_pos, n)
+local function dig_down(pos, n)
     n = n or 1
     for i=1, n do
         while not turtle.down() do
             turtle.digDown()
         end
-        cur_pos[2] = cur_pos[2] - 1
+        pos[2] = pos[2] - 1
     end
 end
 
@@ -199,7 +202,7 @@ if fs.exists('args') then
 else
     local config = get_save()
     local dir = vec_to_dir(get_direction())
-    config['dir'], config['pos'] = dir, gps.locate()
+    config['dir'], config['pos'] = dir, {gps.locate()}
     set_save(config)
 end
 local config = get_save()
