@@ -6,7 +6,7 @@ local function config_turtle()
     config['minePos'] = args['message']['pos']
     config['mineDims'] = args['message']['dims']
     config['moveY'] = args['message']['my'] or 100
-    config['mineY'] = config['moveY']
+    config['mineY'] = config['minePos'][2]
     config['pos'] = args['pos']
     config['dir'] = args['dir'] --config['dir'] is int, 1=north, 2=east, etc
     return config
