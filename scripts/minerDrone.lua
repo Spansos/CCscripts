@@ -130,7 +130,7 @@ end
 
 local function turn(bLeft, dir_vec)
     if bLeft then
-        _, dir_vec[1], dir_vec[2] = vec_from_dir((vec_to_dir(dir_vec) % 4) - 1)
+        _, dir_vec[1], dir_vec[2] = vec_from_dir((vec_to_dir(dir_vec) - 2) % 4 + 1)
         turtle.turnLeft()
     else
         _, dir_vec[1], dir_vec[2] = vec_from_dir((vec_to_dir(dir_vec) % 4) + 1)
