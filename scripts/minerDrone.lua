@@ -108,11 +108,11 @@ local function moveto(dest_pos, cur_pos, desired_y, dir_vec)
         end
     end
     if d_z ~= 0 then
-        turnto(dir_vec, make_move_vec({d_x, 0}))
+        turnto(dir_vec, make_move_vec({0, d_z}))
         while d_z ~= 0 do
             while not turtle.forward() do
                 if turtle.up() then
-                    cur_pos[2] = cur_pos[2] + 1 
+                    cur_pos[2] = cur_pos[2] + 1
                  end
             end
             cur_pos[1], cur_pos[3] = cur_pos[1]+dir_vec[1], cur_pos[3]+dir_vec[2]
