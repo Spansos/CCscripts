@@ -171,6 +171,12 @@ local function dig_down(cur_pos, n)
     end
 end
 
+local function detect_block(block_name)
+    local is_block, blockdata = turtle.inspectDown()
+    local rb = is_block and blockdata['name']==block_name
+    return rb
+end
+
 local function mine(root_pos, mine_size, pos, dir_vec)
     while turtle.inspectDown()[2]['name'] ~= 'minecraft:stone' do
         local mineY = get_save()['mineY']
