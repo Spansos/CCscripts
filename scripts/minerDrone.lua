@@ -184,6 +184,7 @@ local function mine(root_pos, mine_size, pos, dir_vec)
     while not detect_block('minecraft:stone') do
         local mineY = get_save()['mineY']
         moveto({root_pos[1], mineY, root_pos[3]}, pos, root_pos[2], dir_vec)
+        turnto(dir_vec, {0, -1})
         dig_down(pos, 2)
         mine_plane(root_pos, mine_size, pos, dir_vec)
         local new_save = get_save()
