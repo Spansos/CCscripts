@@ -66,7 +66,9 @@ end
 
 local function turnto(cur_dir_vec, dest_dir_vec)
     while vec_to_dir(cur_dir_vec) ~= vec_to_dir(dest_dir_vec) do
-        cur_dir_vec = vec_from_dir((vec_to_dir(cur_dir_vec) % 4) + 1)
+        local n_vec = vec_from_dir((vec_to_dir(cur_dir_vec) % 4) + 1)
+        cur_dir_vec[1] = n_vec[1]
+        cur_dir_vec[2] = n_vec[2]
         turtle.turnRight()
     end
 end
