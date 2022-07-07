@@ -48,7 +48,7 @@ end
 local function make_move_vec(vec)
     local r_vec = {}
     r_vec[1] = vec[1]~=0 and vec[1]/math.abs(vec[1]) or 0
-    r_vec[2] = vec[1]~=0 and vec[2]~=0 and vec[2]/math.abs(vec[2]) or 0
+    r_vec[2] = vec[1]==0 and vec[2]~=0 and vec[2]/math.abs(vec[2]) or 0
     return r_vec
 end
 
