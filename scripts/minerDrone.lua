@@ -197,5 +197,5 @@ end
 local config = get_save()
 local cur_pos, dir_vec, moveY = config['pos'], vec_from_dir(config['dir']), config['moveY']
 
-moveto(config('minePos'), cur_pos, moveY, dir_vec)
+moveto(config['minePos'], cur_pos, moveY, dir_vec)
 mine(config['minePos'], config['mineDims'], cur_pos, dir_vec)
