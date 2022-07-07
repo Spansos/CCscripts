@@ -185,7 +185,7 @@ local function mine(root_pos, mine_size, pos, dir_vec)
         local mineY = get_save()['mineY']
         moveto({root_pos[1], mineY, root_pos[3]}, pos, root_pos[2], dir_vec)
         turnto(dir_vec, {0, -1})
-        dig_down(pos, 2)
+        dig_down(pos, 3)
         mine_plane(root_pos, mine_size, pos, dir_vec)
         local new_save = get_save()
         new_save['mineY'] = pos[2]
