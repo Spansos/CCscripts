@@ -89,7 +89,7 @@ while true do
     for i=1, amount do
         suck_turtle(turtle_type)
         local slot = get_item_slot(turtle_type, true)
-        config_turtle(slot, turtle_script, {tot_n=amount, n=i, direction=settings.get('direction'), message=message})
+        config_turtle(slot, turtle_script, {tot_n=amount, n=i, direction=settings.get('dir'), pos=settings.get('pos'), message=message})
         place_turtle(slot)
     end
 end
