@@ -184,9 +184,9 @@ end
 turtle.suckDown(4)
 turtle.refuel()
 
-if fs.exists('config') then
+if fs.exists('args') then
     local config = config_turtle()
-    fs.delete('config')
+    fs.delete('args')
     set_save(config)
 else
     local config = get_save()
