@@ -178,7 +178,7 @@ local function detect_block(block_name)
 end
 
 local function mine(root_pos, mine_size, pos, dir_vec)
-    while turtle.inspectDown()[2]['name'] ~= 'minecraft:stone' do
+    while ~detect_block('minecraft:stone') do
         local mineY = get_save()['mineY']
         moveto({root_pos[1], mineY, root_pos[3]}, pos, root_pos[2], dir_vec)
         dig_down(pos, 2)
