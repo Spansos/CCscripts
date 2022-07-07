@@ -147,7 +147,7 @@ local function mine_line(len, pos, dir_vec)
         end
         if i ~= len then
             pos[1] = pos[1] + dir_vec[1]
-            pos[3] = pos[3] + dir_vec[3]
+            pos[3] = pos[3] + dir_vec[2]
         end
     end
 end
