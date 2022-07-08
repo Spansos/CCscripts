@@ -75,7 +75,7 @@ local function get_direction()
     local pos2 = vector.new(gps.locate())
     turtle.back()
     local r_vec = pos2 - pos1
-    return r_vec
+    return {r_vec.x, r_vec.y, r_vec.z}
 end
 
 local function make_move_vec(vec)
