@@ -17,6 +17,7 @@ local function calc_pos_and_size(root, size, tot_n, n)
         math.min(math.abs(new_pos[1]+size[1]-root[1]), base_size[1]),
         math.min(math.abs(new_pos[2]+size[2]-root[2]), base_size[2])
     }
+    print(new_size, new_pos)
     return new_pos, new_size
 end
 
@@ -25,9 +26,7 @@ local function config_turtle()
     local args = textutils.unserialise(args_file.readAll())
     args_file.close()
     local config = {}
-    local mine_pos, mine_size = calc_pos_and_size(args['message']['pos'], args['message']['dims'], args['tot_n'], args['n'])
-    config['minePos'] = mine_pos
-    config['mineDims'] = mine_size
+    config['minePos'], config['mineDims'] = calc_pos_and_size(args['message']['pos'], args['message']['dims'], args['tot_n'], args['n'])
     config['moveY'] = args['message']['my'] or 100
     config['mineY'] = config['minePos'][2]
     config['pos'] = args['pos']
@@ -187,7 +186,7 @@ local function mine_line(len, pos, dir_vec)
 end
 
 
-local function mine_plane(root_pos, mine_size, pos, dir_vec)
+local function mine_plane(mine_size, pos, dir_vec)
     local l = false
     for i=1, mine_size[1] do
         mine_line(mine_size[2], pos, dir_vec)
@@ -216,7 +215,7 @@ local function mine(root_pos, mine_size, pos, dir_vec)
         moveto({root_pos[1], mineY, root_pos[3]}, pos, mineY, dir_vec)
         turnto(dir_vec, {0, 1})
         dig_down(pos, 3)
-        mine_plane(root_pos, mine_size, pos, dir_vec)
+        mine_plane(mine_size, pos, dir_vec)
         local new_save = get_save()
         new_save['mineY'] = pos[2]
         set_save(new_save)
@@ -231,8 +230,8 @@ end
 if fs.exists('args') then
     local config = config_turtle()
     config['state'] = 'move_mine'
-    fs.delete('args')
     set_save(config)
+    fs.delete('args')
 else
     local config = get_save()
     local dir = vec_to_dir(get_direction())
