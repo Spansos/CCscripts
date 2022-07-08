@@ -11,8 +11,9 @@ local function calc_pos_and_size(root, size, tot_n, n)
     local div1, div2 = get_divs(tot_n)
     local base_size = {math.ceil(size[1]/div1), math.ceil(size[2]/div2)}
     local grid_pos = {((n-1)%div1), math.floor((n-1)/div1)}
+    print(textutils.serialise(grid_pos))
     local new_pos = {grid_pos[1]*base_size[1]+root[1], root[2], grid_pos[2]*base_size[2]+root[3]}
-    print(new_pos[1], size[1], root[1], '\n', new_pos[2], size[2], root[2], '\n', math.abs(new_pos[1]+size[1]-root[1]), math.abs(new_pos[2]+size[2]-root[2]))
+    print(new_pos[1], new_pos[2], '\n', size[1], size[2], '\n', root[1], root[2])
     local new_size = {
         math.min(math.abs(new_pos[1]+size[1]-root[1]), base_size[1]),
         math.min(math.abs(new_pos[2]+size[2]-root[2]), base_size[2])
