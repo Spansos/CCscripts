@@ -222,7 +222,7 @@ local function mine(root_pos, mine_size, pos, dir_vec)
     end
 end
 
-while turtle.getFuelLevel() < 500 do
+while turtle.getFuelLevel() < 1000 do
     turtle.suckDown(1)
     turtle.refuel()
 end
