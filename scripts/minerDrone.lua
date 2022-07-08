@@ -210,7 +210,7 @@ local function dig_down(pos, n)
 end
 
 local function mine(root_pos, mine_size, pos, dir_vec)
-    while get_save()['mineY'] > 50 do
+    while get_save()['mineY'] > 55 do
         local mineY = get_save()['mineY']
         moveto({root_pos[1], mineY, root_pos[3]}, pos, mineY, dir_vec)
         turnto(dir_vec, {0, -1})
@@ -222,8 +222,10 @@ local function mine(root_pos, mine_size, pos, dir_vec)
     end
 end
 
-turtle.suckDown(4)
-turtle.refuel()
+while turtle.getFuelLevel() < 500 do
+    turtle.suckDown(1)
+    turtle.refuel()
+end
 
 if fs.exists('args') then
     local config = config_turtle()
