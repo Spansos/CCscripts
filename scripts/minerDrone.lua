@@ -17,7 +17,7 @@ local function calc_pos_and_size(root, size, tot_n, n)
         math.min(math.abs(new_pos[1]+size[1]-root[1]), base_size[1]),
         math.min(math.abs(new_pos[2]+size[2]-root[2]), base_size[2])
     }
-    print(new_size, new_pos)
+    print(textutils.serialise(new_size), textutils.serialise(new_pos))
     return new_pos, new_size
 end
 
