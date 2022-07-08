@@ -1,10 +1,32 @@
+local function get_divs(n)
+    for i=math.floor(n/2), 1, -1 do
+        local t_n = n/i
+        if math.floor(t_n) == t_n then
+            return i, n/i
+        end
+    end
+end
+
+local function calc_pos_and_size(root, size, tot_n, n)
+    local div1, div2 = get_divs(tot_n)
+    local base_size = {math.ceil(size[1]/div1), math.ceil(size[2]/div2)}
+    local grid_pos = {((n-1)%div1), math.floor(n/div1)}
+    local new_pos = {grid_pos[1]*base_size[1]+root[1], root[2], grid_pos[2]*base_size[2]+root[3]}
+    local new_size = {
+        math.min(math.abs(root[1]+size[1]-new_pos[1])-1, base_size[1]),
+        math.min(math.abs(root[2]+size[2]-new_pos[2])-1, base_size[2])
+    }
+    return new_pos, new_size
+end
+
 local function config_turtle()
     local args_file = fs.open('args', 'r')
     local args = textutils.unserialise(args_file.readAll())
     args_file.close()
     local config = {}
-    config['minePos'] = args['message']['pos']
-    config['mineDims'] = args['message']['dims']
+    local mine_pos, mine_size = calc_pos_and_size(args['message']['pos'], args['message']['dims'], args['tot_n'], args['n'])
+    config['minePos'] = mine_pos
+    config['mineDims'] = mine_size
     config['moveY'] = args['message']['my'] or 100
     config['mineY'] = config['minePos'][2]
     config['pos'] = args['pos']
@@ -26,6 +48,16 @@ local function set_save(data)
     save_file.close()
 end
 
+local function get_state()
+    local save = get_save()
+    return save['state']
+end
+
+local function set_state(state)
+    local save = get_save()
+    save['state'] = state
+    set_save(save)
+end
 
 local function vec_from_dir(dir)
     local r_vec = {}
@@ -37,12 +69,13 @@ end
 
 local function get_direction()
     local pos1 = vector.new(gps.locate())
-    if turtle.forward() then
-        local pos2 = vector.new(gps.locate())
-        turtle.back()
-        local r_vec = pos2 - pos1
-        return r_vec
+    while not turtle.forward() do
+        turtle.turnRight()
     end
+    local pos2 = vector.new(gps.locate())
+    turtle.back()
+    local r_vec = pos2 - pos1
+    return r_vec
 end
 
 local function make_move_vec(vec)
@@ -176,14 +209,8 @@ local function dig_down(pos, n)
     end
 end
 
-local function detect_block(block_name)
-    local is_block, blockdata = turtle.inspectDown()
-    local rb = is_block and blockdata['name']==block_name
-    return rb
-end
-
 local function mine(root_pos, mine_size, pos, dir_vec)
-    while not detect_block('minecraft:stone') do
+    while get_save()['mineY'] > 50 do
         local mineY = get_save()['mineY']
         moveto({root_pos[1], mineY, root_pos[3]}, pos, mineY, dir_vec)
         turnto(dir_vec, {0, -1})
@@ -200,6 +227,7 @@ turtle.refuel()
 
 if fs.exists('args') then
     local config = config_turtle()
+    config['state'] = 'move_mine'
     fs.delete('args')
     set_save(config)
 else
@@ -211,5 +239,16 @@ end
 local config = get_save()
 local cur_pos, dir_vec, moveY = config['pos'], vec_from_dir(config['dir']), config['moveY']
 
-moveto(config['minePos'], cur_pos, moveY, dir_vec)
-mine(config['minePos'], config['mineDims'], cur_pos, dir_vec)
+repeat
+    local state = get_state()
+    if state == 'move_mine' then
+        moveto(config['minePos'], cur_pos, moveY, dir_vec)
+        set_state('do_mine')
+    elseif state == 'do_mine' then
+        mine(config['minePos'], config['mineDims'], cur_pos, dir_vec)
+        set_state('move_end')
+    elseif state == 'move_end' then
+        moveto({-185, 70, -30}, cur_pos, moveY, dir_vec)
+        set_state('end')
+    end
+until state == 'end'
