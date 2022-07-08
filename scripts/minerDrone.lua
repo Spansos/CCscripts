@@ -11,10 +11,10 @@ local function calc_pos_and_size(root, size, tot_n, n)
     local div1, div2 = get_divs(tot_n)
     local base_size = {math.ceil(size[1]/div1), math.ceil(size[2]/div2)}
     local grid_pos = {((n-1)%div1), math.floor(n/div1)}
-    local new_pos = {grid_pos[1]*base_size[1]+root[1], root[2], grid_pos[2]*base_size[2]+root[3]}
+    local new_pos = {grid_pos[1]*base_size[1]+root[1], root[2], grid_pos[2]*base_size[2]+root[3]-1}
     local new_size = {
-        math.min(math.abs(root[1]+size[1]-new_pos[1])-1, base_size[1]),
-        math.min(math.abs(root[2]+size[2]-new_pos[2])-1, base_size[2])
+        math.min(math.abs(root[1]+size[1]-new_pos[1]), base_size[1]),
+        math.min(math.abs(root[2]+size[2]-new_pos[2]), base_size[2])
     }
     return new_pos, new_size
 end
@@ -248,7 +248,7 @@ repeat
         mine(config['minePos'], config['mineDims'], cur_pos, dir_vec)
         set_state('move_end')
     elseif state == 'move_end' then
-        moveto({-185, 70, -30}, cur_pos, moveY, dir_vec)
+        moveto({-185, 63, -30}, cur_pos, moveY, dir_vec)
         set_state('end')
     end
 until state == 'end'
