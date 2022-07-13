@@ -27,7 +27,8 @@ local function config_turtle()
     config['minePos'], config['mineDims'] = calc_pos_and_size(args['message']['pos'], args['message']['dims'], args['tot_n'], args['n'])
     config['moveY'] = args['message']['my'] or 100
     config['mineY'] = config['minePos'][2]
-    config['emptyPos'] = args['storepos']
+    config['emptyPos'] = args['message']['storepos']
+    config['delPos'] = args['message']['delpos']
     config['pos'] = args['pos']
     config['dir'] = args['dir'] --config['dir'] is int, 1=north, 2=east, etc
     return config
