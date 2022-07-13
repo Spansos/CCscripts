@@ -232,7 +232,7 @@ local function mine_plane(mine_size, pos, dir_vec)
 end
 
 local function empty(dir_vec)
-    local is_block, block_data = turtle.detect()
+    local is_block, block_data = turtle.inspect()
     while not is_block or block_data['name'] ~= 'minecraft:chest' or block_data['name'] ~= 'minecraft:barrel' do
         turn(true, dir_vec)
         is_block, block_data = turtle.detect()
