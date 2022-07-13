@@ -25,4 +25,5 @@ end
 while true do
     try_empty()
     try_break()
+    sleep(.5)
 end
