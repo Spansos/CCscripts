@@ -1,4 +1,5 @@
 local function get_divs(n)
+    if n==1 then return 1, 1 end
     for i=math.floor(n/2), 1, -1 do
         local t_n = n/i
         if math.floor(t_n) == t_n then
