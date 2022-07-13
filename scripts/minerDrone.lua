@@ -258,7 +258,7 @@ local function dig_down(pos, n)
 end
 
 local function mine(root_pos, mine_size, pos, dir_vec)
-    while get_save()['mineY'] > END_Y or inv_full() do
+    while get_save()['mineY'] > END_Y and not inv_full() do
         local mineY = get_save()['mineY']
         moveto({root_pos[1], mineY, root_pos[3]}, pos, mineY, dir_vec)
         turnto(dir_vec, {0, 1})
