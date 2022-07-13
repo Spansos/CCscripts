@@ -271,10 +271,11 @@ local function mine(root_pos, mine_size, pos, dir_vec)
     end
 end
 
-while turtle.getFuelLevel() < 1000 do
-    turtle.suckDown(1)
+while turtle.getFuelLevel() < turtle.getFuelLimit() do
+    turtle.suckDown(3)
     turtle.refuel()
 end
+turtle.dropDown()
 
 if fs.exists('args') then
     local config = config_turtle()
