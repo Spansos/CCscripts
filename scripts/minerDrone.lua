@@ -233,7 +233,7 @@ end
 
 local function empty(dir_vec)
     local is_block, block_data = turtle.inspect()
-    while not is_block or block_data['name'] ~= 'minecraft:chest' or block_data['name'] ~= 'minecraft:barrel' do
+    while not is_block or (block_data['name'] ~= 'minecraft:chest' and block_data['name'] ~= 'minecraft:barrel') do
         turn(true, dir_vec)
         is_block, block_data = turtle.detect()
     end
