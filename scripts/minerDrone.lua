@@ -68,14 +68,14 @@ local function vec_from_dir(dir)
 end
 
 local function get_direction()
-    local pos1 = vector.new(gps.locate())
+    local pos1 = gps.locate()
     while not turtle.forward() do
         turtle.turnRight()
     end
-    local pos2 = vector.new(gps.locate())
+    local pos2 = gps.locate()
     turtle.back()
-    local r_vec = pos2 - pos1
-    return {r_vec.x, r_vec.y, r_vec.z}
+    local r_vec = {pos2[1] - pos1[1], pos2[3] - pos1[3]}
+    return {r_vec.x, r_vec.z}
 end
 
 local function make_move_vec(vec)
