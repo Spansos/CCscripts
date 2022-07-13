@@ -27,6 +27,7 @@ local function config_turtle()
     config['minePos'], config['mineDims'] = calc_pos_and_size(args['message']['pos'], args['message']['dims'], args['tot_n'], args['n'])
     config['moveY'] = args['message']['my'] or 100
     config['mineY'] = config['minePos'][2]
+    config['emptyPos'] = args['storepos']
     config['pos'] = args['pos']
     config['dir'] = args['dir'] --config['dir'] is int, 1=north, 2=east, etc
     return config
@@ -122,6 +123,29 @@ local function go_to_y(cur_pos, dest_y)
     end
 end
 
+local function go_to_y_forced(cur_pos, dest_y)
+    local d_y = dest_y - cur_pos[2]
+    if d_y > 0 then
+        while d_y ~= 0 do
+            if turtle.up() then
+                cur_pos[2] = cur_pos[2] + 1
+                d_y = dest_y - cur_pos[2]
+            end
+            sleep(.2)
+        end
+    else
+        if d_y < 0 then
+            while d_y ~= 0 do
+                if turtle.down() then
+                    cur_pos[2] = cur_pos[2] - 1
+                    d_y = dest_y - cur_pos[2]
+                end
+                sleep(.2)
+            end
+        end
+    end
+end
+
 
 local function moveto(dest_pos, cur_pos, desired_y, dir_vec)
     local loc_pos = {gps.locate()}
@@ -169,6 +193,15 @@ local function turn(bLeft, dir_vec)
     end
 end
 
+local function inv_full()
+    for i=1, 16 do
+        if turtle.getItemCount(i) == 0 then
+            return false
+        end
+    end
+    return true
+end
+
 local function mine_line(len, pos, dir_vec)
     for i=1, len do
         while turtle.digUp() do end
@@ -197,6 +230,22 @@ local function mine_plane(mine_size, pos, dir_vec)
     end
 end
 
+local function empty(dir_vec)
+    local is_block, block_data = turtle.detect()
+    while block_data['name'] ~= 'minecraft:chest' or block_data['name'] ~= 'minecraft:barrel' do
+        turn(true, dir_vec)
+        is_block, block_data = turtle.detect()
+    end
+    for i=1, 16 do
+        turtle.select(i)
+        local dropped, message = turtle.drop()
+        while not dropped and message == 'No space fo items' do
+            dropped, message = turtle.drop()
+            wait(1)
+        end
+    end
+end
+
 local function dig_down(pos, n)
     n = n or 1
     for i=1, n do
@@ -208,7 +257,7 @@ local function dig_down(pos, n)
 end
 
 local function mine(root_pos, mine_size, pos, dir_vec)
-    while get_save()['mineY'] > 55 do
+    while get_save()['mineY'] > END_Y or inv_full() do
         local mineY = get_save()['mineY']
         moveto({root_pos[1], mineY, root_pos[3]}, pos, mineY, dir_vec)
         turnto(dir_vec, {0, 1})
@@ -236,8 +285,11 @@ else
     config['dir'], config['pos'] = dir, {gps.locate()}
     set_save(config)
 end
+
+END_Y = -60
+
 local config = get_save()
-local cur_pos, dir_vec, moveY = config['pos'], vec_from_dir(config['dir']), config['moveY']
+local cur_pos, dir_vec, moveY, emptyPos, delPos = config['pos'], vec_from_dir(config['dir']), config['moveY'], config['emptyPos'], config['delPos']
 
 repeat
     local state = get_state()
@@ -246,9 +298,19 @@ repeat
         set_state('do_mine')
     elseif state == 'do_mine' then
         mine(config['minePos'], config['mineDims'], cur_pos, dir_vec)
-        set_state('move_end')
-    elseif state == 'move_end' then
-        moveto({-185, 63, -30}, cur_pos, moveY, dir_vec)
+        set_state('move_empty')
+    elseif state == 'move_empty' then
+        repeat
+            moveto(emptyPos, cur_pos, moveY, dir_vec)
+        until cur_pos[1] == emptyPos[1] and cur_pos[3] == emptyPos[3]
+        go_to_y_forced(cur_pos, emptyPos[2])
+        empty(dir_vec)
+        set_state(config['mineY']<=END_Y and 'move_del' or 'move_mine')
+    elseif state == 'move_del' then
+        repeat
+            moveto(delPos, cur_pos, moveY, dir_vec)
+        until cur_pos[1] == delPos[1] and cur_pos[3] == delPos[3]
+        go_to_y_forced(cur_pos, delPos[2])
         set_state('end')
     end
 until state == 'end'
