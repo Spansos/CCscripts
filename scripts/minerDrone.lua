@@ -243,7 +243,7 @@ local function empty(dir_vec)
         local dropped, message = turtle.drop()
         while not dropped and message == 'No space for items' do
             dropped, message = turtle.drop()
-            wait(1)
+            sleep(1)
         end
     end
 end
