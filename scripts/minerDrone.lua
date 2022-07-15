@@ -241,7 +241,7 @@ local function empty(dir_vec)
     for i=1, 16 do
         turtle.select(i)
         local dropped, message = turtle.drop()
-        while not dropped and message == 'No space fo items' do
+        while not dropped and message == 'No space for items' do
             dropped, message = turtle.drop()
             wait(1)
         end
@@ -307,6 +307,8 @@ repeat
             moveto(emptyPos, cur_pos, moveY, dir_vec)
         until cur_pos[1] == emptyPos[1] and cur_pos[3] == emptyPos[3]
         go_to_y_forced(cur_pos, emptyPos[2])
+        set_state('do_empty')
+    elseif state == 'do_move' then
         empty(dir_vec)
         set_state(get_save()['mineY']<=END_Y and 'move_del' or 'move_mine')
     elseif state == 'move_del' then
