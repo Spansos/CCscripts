@@ -37,7 +37,7 @@ local function calc_pos_and_size(root, size, tot_n, n, grid_pos)
 
     local new_pos = {grid_pos[1]*base_size[1]+root[1], root[2], grid_pos[2]*base_size[2]+root[3]}
     new_pos = {math.floor(new_pos[1]), new_pos[2], math.floor(new_pos[3])}
-    new_size = {math.ceil(new_size[1]), math.ceil(new_size[2])}
+    local new_size = {math.ceil(base_size[1]), math.ceil(base_size[2])}
     if n ~= nil then
         local next_pos, _ = calc_pos_and_size(root, size, tot_n, nil, {grid_pos[0]+1, grid_pos[1]+1})
         new_size = {
