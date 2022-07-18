@@ -52,6 +52,8 @@ def get_divs(n):
 
 def calc_pos_and_size(root, size, tot_n, n=None, grid_pos=None):
     div1, div2 = get_divs(tot_n)
+    if size[0] > size[1]:
+        div1, div2 = div2, div1
     base_size = (size[0]/div1, size[1]/div2)
     
     if grid_pos == None:

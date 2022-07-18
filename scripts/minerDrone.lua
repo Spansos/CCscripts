@@ -30,6 +30,7 @@ end
 local function calc_pos_and_size(root, size, tot_n, n, grid_pos)
     local div1, div2 = get_divs(tot_n)
     local base_size = {size[1]/div1, size[2]/div2}
+    if size[1] > size[2] then div1, div2 = div2, div1 end
 
     if grid_pos == nil then
         grid_pos = {((n-1)%div1), math.floor((n-1)/div1)}
