@@ -291,8 +291,8 @@ else
     set_save(config)
 end
 
--- END_Y = -56
-END_Y = 56
+END_Y = -56
+-- END_Y = 56
 
 local config = get_save()
 local cur_pos, dir_vec, moveY, emptyPos, delPos = config['pos'], vec_from_dir(config['dir']), config['moveY'], config['emptyPos'], config['delPos']
