@@ -41,8 +41,8 @@ local function calc_pos_and_size(root, size, tot_n, n, grid_pos)
     if n ~= nil then
         local next_pos, _ = calc_pos_and_size(root, size, tot_n, nil, {grid_pos[0]+1, grid_pos[1]+1})
         new_size = {
-            math.min(math.abs(new_pos[0]-next_pos[0]), new_size[0]),
-            math.min(math.abs(new_pos[1]-next_pos[1]), new_size[1])
+            math.min(math.abs(new_pos[1]-next_pos[1]), new_size[1]),
+            math.min(math.abs(new_pos[3]-next_pos[3]), new_size[2])
         }
     end
     return new_pos, new_size
