@@ -31,29 +31,53 @@ def get_divs(n):
             return i, n/i
     return 1, 1
 
-def calc_pos_and_size(root, size, n, tot_n):
+# def calc_pos_and_size(root, size, n, tot_n, grid_pos=None):
+#     div1, div2 = get_divs(tot_n)
+#     base_size = (size[0]/div1, size[1]/div2)
+#     if not grid_pos:
+#         grid_pos = (((n-1)%div1), floor((n-1)/div1))
+#         bound = False
+#     new_pos = (grid_pos[0]*base_size[0]+root[0], grid_pos[1]*base_size[1]+root[1])
+#     next_pos = new_pos[0]+
+#     if bound:
+#         next_pos, _ = calc_pos_and_size(root, size, n, tot_n, (grid_pos[0]+1, grid_pos[1]+1))
+#     new_size = (
+#         min(abs(root[0]+size[0]-new_pos[0])),
+#         min(abs(root[1]+size[1]-new_pos[1]))
+#     )
+#     new_pos = [floor(i) for i in new_pos]
+#     new_size = [ceil(i) for i in new_size]
+#     return new_pos, new_size
+
+
+def calc_pos_and_size(root, size, tot_n, n=None, grid_pos=None):
     div1, div2 = get_divs(tot_n)
     base_size = (size[0]/div1, size[1]/div2)
-    grid_pos = (((n-1)%div1), floor((n-1)/div1))
-    new_pos = (grid_pos[0]*base_size[0]+root[0], grid_pos[1]*base_size[1]+root[1])
-    new_size = (
-        min(abs(root[0]+size[0]-new_pos[0]), base_size[0]),
-        min(abs(root[1]+size[1]-new_pos[1]), base_size[1])
-    )
-    new_pos = [floor(i) for i in new_pos]
-    new_size = [ceil(i) for i in new_size]
+    
+    if grid_pos == None:
+        grid_pos = (((n-1)%div1), floor((n-1)/div1))
+    
+    new_pos  = (grid_pos[0]*base_size[0]+root[0], grid_pos[1]*base_size[1]+root[1])
+    new_pos  = [floor(i) for i in new_pos]
+    new_size = [ceil(i) for i in base_size]
+    if n != None:
+        next_pos, _ = calc_pos_and_size(root, size, tot_n, grid_pos=[grid_pos[0]+1, grid_pos[1]+1])
+        new_size = (
+            min(abs(new_pos[0]-next_pos[0]), new_size[0]),
+            min(abs(new_pos[1]-next_pos[1]), new_size[1])
+        )
     return new_pos, new_size
 
 def render(n, size, root, screen):
     rects = []
     for i in range(n):
         r = pg.Rect((0, 0, 0, 0))
-        nr_r = calc_pos_and_size(root, size, i+1, n)
+        nr_r = calc_pos_and_size(root, size, n, n=i+1)
         r.topleft = nr_r[0]
         r.size = nr_r[1]
         rects.append(r)
     screen.fill((0,0,0))
-    print([i for i in rects])
+    print([r for r in rects])
     for i, r in enumerate(rects):
         c = pg.color.Color((0, 0, 0, 0))
         c.hsva = (i+1)/n*360, 100, 100, 100
