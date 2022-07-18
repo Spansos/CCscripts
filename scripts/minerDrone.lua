@@ -317,7 +317,7 @@ else
     set_save(config)
 end
 
-END_Y = 56
+END_Y = -56
 
 
 local config = get_save()
