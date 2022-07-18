@@ -8,6 +8,18 @@ local function get_divs(n)
     end
 end
 
+local function abs_floor(n)
+    local abs_n = math.abs(n)
+    local sign = abs_n/n
+    return math.floor(abs_n)*sign
+end
+
+local function abs_ceil(n)
+    local abs_n = math.abs(n)
+    local sign = abs_n/n
+    return math.ceil(abs_n)*sign
+end
+
 local function calc_pos_and_size(root, size, tot_n, n)
     local div1, div2 = get_divs(tot_n)
     local base_size = {size[1]/div1, size[2]/div2}
@@ -17,8 +29,8 @@ local function calc_pos_and_size(root, size, tot_n, n)
         math.min(math.abs(root[1]+size[1]-new_pos[1]), base_size[1]),
         math.min(math.abs(root[3]+size[2]-new_pos[3]), base_size[2])
     }
-    new_pos = {math.floor(new_pos[1]), new_pos[2], math.floor(new_pos[3])}
-    new_size = {math.ceil(new_size[1]), math.ceil(new_size[2])}
+    new_pos = {abs_floor(new_pos[1]), new_pos[2], abs_floor(new_pos[3])}
+    new_size = {abs_ceil(new_size[1]), abs_ceil(new_size[2])}
     return new_pos, new_size
 end
 
@@ -291,8 +303,8 @@ else
     set_save(config)
 end
 
-END_Y = -56
--- END_Y = 56
+END_Y = 56
+
 
 local config = get_save()
 local cur_pos, dir_vec, moveY, emptyPos, delPos = config['pos'], vec_from_dir(config['dir']), config['moveY'], config['emptyPos'], config['delPos']
