@@ -8,29 +8,43 @@ local function get_divs(n)
     end
 end
 
-local function abs_floor(n)
-    local abs_n = math.abs(n)
-    local sign = abs_n/n
-    return math.floor(abs_n)*sign
-end
+-- def calc_pos_and_size(root, size, tot_n, n=None, grid_pos=None):
+--     div1, div2 = get_divs(tot_n)
+--     base_size = (size[0]/div1, size[1]/div2)
+    
+--     if grid_pos == None:
+--         grid_pos = (((n-1)%div1), floor((n-1)/div1))
+    
+--     new_pos  = (grid_pos[0]*base_size[0]+root[0], grid_pos[1]*base_size[1]+root[1])
+--     new_pos  = [floor(i) for i in new_pos]
+--     new_size = [ceil(i) for i in base_size]
+--     if n != None:
+--         next_pos, _ = calc_pos_and_size(root, size, tot_n, grid_pos=[grid_pos[0]+1, grid_pos[1]+1])
+--         new_size = (
+--             min(abs(new_pos[0]-next_pos[0]), new_size[0]),
+--             min(abs(new_pos[1]-next_pos[1]), new_size[1])
+--         )
+--     return new_pos, new_size
 
-local function abs_ceil(n)
-    local abs_n = math.abs(n)
-    local sign = abs_n/n
-    return math.ceil(abs_n)*sign
-end
 
-local function calc_pos_and_size(root, size, tot_n, n)
+local function calc_pos_and_size(root, size, tot_n, n, grid_pos)
     local div1, div2 = get_divs(tot_n)
     local base_size = {size[1]/div1, size[2]/div2}
-    local grid_pos = {((n-1)%div1), math.floor((n-1)/div1)}
+
+    if grid_pos == nil then
+        grid_pos = {((n-1)%div1), math.floor((n-1)/div1)}
+    end
+
     local new_pos = {grid_pos[1]*base_size[1]+root[1], root[2], grid_pos[2]*base_size[2]+root[3]}
-    local new_size = {
-        math.min(math.abs(root[1]+size[1]-new_pos[1]), base_size[1]),
-        math.min(math.abs(root[3]+size[2]-new_pos[3]), base_size[2])
-    }
-    new_pos = {abs_floor(new_pos[1]), new_pos[2], abs_floor(new_pos[3])}
-    new_size = {abs_ceil(new_size[1]), abs_ceil(new_size[2])}
+    new_pos = {math.floor(new_pos[1]), new_pos[2], math.floor(new_pos[3])}
+    new_size = {math.ceil(new_size[1]), math.ceil(new_size[2])}
+    if n ~= nil then
+        local next_pos, _ = calc_pos_and_size(root, size, tot_n, nil, {grid_pos[0]+1, grid_pos[1]+1})
+        new_size = {
+            math.min(math.abs(new_pos[0]-next_pos[0]), new_size[0]),
+            math.min(math.abs(new_pos[1]-next_pos[1]), new_size[1])
+        }
+    end
     return new_pos, new_size
 end
 
