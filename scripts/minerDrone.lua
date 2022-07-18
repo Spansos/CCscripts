@@ -222,7 +222,7 @@ end
 
 
 local function mine_plane(mine_size, pos, dir_vec)
-    local l = true
+    local l = false
     for i=1, mine_size[1] do
         mine_line(mine_size[2], pos, dir_vec)
         if i ~= mine_size[1] then
